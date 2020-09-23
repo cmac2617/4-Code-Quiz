@@ -24,7 +24,7 @@ var Qs = [
         As: [".css", ".html", ".javascript", ".js"]
     },
     Q7 = {
-        Q: "Javascript places inside an HTML document must be contained inside what kind of tag?",
+        Q: "Javascript placed inside an HTML document must be contained inside what kind of tag?",
         As: ["div", "head", "p", "script"]
     },
     Q8 = {
@@ -42,10 +42,12 @@ var Qs = [
 ]
 
 var begin = document.getElementById("start");
+begin.setAttribute("class", "button");
 var time = 121;
 var qNumber = 0;
 var score = 0;
 var newQ = document.createElement("div");
+newQ.setAttribute("id", "question");
 var notify = document.createElement("h1");
 var display = document.createElement("span");
 var endGame = document.createElement("form")
@@ -60,8 +62,7 @@ qButton3.setAttribute("class", "button");
 var qButton4 = document.createElement("button");
 qButton4.setAttribute("class", "button");
 var list = document.createElement("ul");
-var listItem = document.createElement("li");
-var entries = ["bob"];
+var entries = ["Names"];
 
 var arrayShuffler = [0, 1, 2, 3];
 var a = Math.floor(Math.random() * 4);
@@ -241,10 +242,16 @@ record.addEventListener("click", function(){
     newQ.remove();
     begin.remove();
     var entry = initials.value + ": " + score;
-    var retrievedString = localStorage.getItem("stringifyEntries");
-    entries = JSON.parse(retrievedString);
     entries.push(entry);
     localStorage.setItem("stringifyEntries", JSON.stringify(entries));
+    var retrievedString = localStorage.getItem("stringifyEntries");
+    
+    entries = JSON.parse(retrievedString);
+    
+    
+    
+    
+    
     
     
     
@@ -260,7 +267,7 @@ record.addEventListener("click", function(){
         // var item = document.createElement('li');
         // item.appendChild(document.createTextNode(entries[i]));
         // list.appendChild(item);
-        
+        var listItem = document.createElement("li");
         list.append(listItem);
 listItem.innerHTML = entries[i];
         
