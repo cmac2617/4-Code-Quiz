@@ -251,8 +251,6 @@ record.addEventListener("click", function () {
     begin.remove();
     var retrievedString = localStorage.getItem("stringifyEntries");
     entries = JSON.parse(retrievedString);
-    console.log(entries.length);
-    console.log(entries);
 
     if (entries.length == 1) {
         localStorage.setItem("stringifyEntries", JSON.stringify(entries));
@@ -262,8 +260,6 @@ record.addEventListener("click", function () {
     entries = JSON.parse(retrievedString);
     var entry = initials.value + ": " + score;
     entries.push(entry);
-    console.log(entries.length);
-    console.log(entries);
     localStorage.setItem("stringifyEntries", JSON.stringify(entries));
     document.body.appendChild(notify);
     notify.innerHTML = "Previous scores!";
