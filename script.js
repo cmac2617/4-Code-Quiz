@@ -258,7 +258,7 @@ record.addEventListener("click", function () {
     entries.push(entry);
     localStorage.setItem("stringifyEntries", JSON.stringify(entries));
     document.body.appendChild(notify);
-    notify.innerHTML = "Previous scores!";
+    notify.innerHTML = "Previous scores! Refresh the page to try again! :)";
     document.body.appendChild(list);
 
     for (i = 0; i < entries.length; i++) {
