@@ -1,3 +1,4 @@
+// Creating array to hold questions and answers.
 var Qs = [
     Q1 = {
         Q: "Javascript is one of HOW MANY fundamental programming languages of the web?",
@@ -41,6 +42,9 @@ var Qs = [
     },
 ]
 
+// Initializing variables and setting classes.
+var description = document.getElementById("description")
+description.innerHTML = "You will have two minutes (120 seconds) to complete the quiz. Every incorrect answer will subtract 10 seconds from your remaining time. You will get 10 points for each correct question answered, and a bonus point for every second left on the clock!"
 var begin = document.getElementById("start");
 begin.setAttribute("class", "button");
 var time = 121;
@@ -63,37 +67,43 @@ var qButton4 = document.createElement("button");
 qButton4.setAttribute("class", "button");
 var list = document.createElement("ul");
 var entries = ["Names"];
+localStorage.setItem("stringifyEntries", JSON.stringify(entries));
 
+// Creating an array for randomization of questions upon retake.
 var arrayShuffler = [0, 1, 2, 3];
 var a = Math.floor(Math.random() * 4);
 a = arrayShuffler.splice(a, 1);
+console.log(a);
 var b = Math.floor(Math.random() * 3);
 b = arrayShuffler.splice(b, 1);
+console.log(b);
 var c = Math.floor(Math.random() * 2);
 c = arrayShuffler.splice(c, 1);
+console.log(c);
 d = arrayShuffler[0];
+console.log(d);
 
-
+// Specifying primary function with setInterval on inside to run quiz.
 function quizTimer() {
+    description.remove();
     var timer = setInterval(function () {
         time--;
-        console.log(time);
-        console.log(score);
-        console.log(qNumber);
 
-       if (time == 0 || time < 0 || qNumber > 9) {
-           clearInterval(timer);
-           newQ.appendChild(notify);
-           notify.innerHTML = "Your score: "
-           notify.appendChild(display);
-           display.innerHTML = score + time;
-           newQ.appendChild(endGame);
-           newQ.appendChild(initials);
-           initials.setAttribute("placeholder", "initials");
-           newQ.appendChild(record);
-           record.innerHTML = "Submit";
-       }
+        // Specifying exit condition, and generating HTML to display score.
+        if (time <= 0 || qNumber > 9) {
+            newQ.appendChild(notify);
+            notify.innerHTML = "Your score: "
+            notify.appendChild(display);
+            display.innerHTML = score + time;
+            newQ.appendChild(endGame);
+            newQ.appendChild(initials);
+            initials.setAttribute("placeholder", "Your name");
+            newQ.appendChild(record);
+            record.innerHTML = "Submit";
+            clearInterval(timer);
+        }
 
+        // Assigning new buttons and values, generated from "button" addEventListeners below.
         document.body.appendChild(newQ);
         newQ.innerHTML = Qs[qNumber].Q;
         newQ.appendChild(qButton1);
@@ -104,12 +114,13 @@ function quizTimer() {
         qButton3.innerHTML = Qs[qNumber].As[c];
         newQ.appendChild(qButton4);
         qButton4.innerHTML = Qs[qNumber].As[d];
-
         begin.innerHTML = time;
-        score = score;
-    }, 2000);
+
+    }, 1000);
 }
 
+// Each time a button is chosen, it is checked with the original array to see if the answer is correct.
+// The correct answer is always in the fourth position, index of 3, in the original array of questions and answers.
 qButton1.addEventListener("click", function () {
     if (qButton1.innerHTML == Qs[qNumber].As[3]) {
         score = score + 10; qNumber++;
@@ -124,7 +135,7 @@ qButton1.addEventListener("click", function () {
         c = arrayShuffler.splice(c, 1);
 
         d = arrayShuffler[0];
-        }
+    }
     else {
         time = time - 10; qNumber++;
         arrayShuffler = [0, 1, 2, 3];
@@ -236,46 +247,23 @@ qButton4.addEventListener("click", function () {
 
 begin.addEventListener("click", quizTimer);
 
-
-
-record.addEventListener("click", function(){
+record.addEventListener("click", function () {
     newQ.remove();
     begin.remove();
     var entry = initials.value + ": " + score;
+    var retrievedString = localStorage.getItem("stringifyEntries");
+    entries = JSON.parse(retrievedString);
     entries.push(entry);
     localStorage.setItem("stringifyEntries", JSON.stringify(entries));
-    var retrievedString = localStorage.getItem("stringifyEntries");
-    
-    entries = JSON.parse(retrievedString);
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     document.body.appendChild(notify);
     notify.innerHTML = "Previous scores!";
     document.body.appendChild(list);
     console.log(entries);
-    
+
     for (i = 0; i < entries.length; i++) {
-
-        // var item = document.createElement('li');
-        // item.appendChild(document.createTextNode(entries[i]));
-        // list.appendChild(item);
-        var listItem = document.createElement("li");
-        list.append(listItem);
-listItem.innerHTML = entries[i];
-        
-        
-        
-    
-    
+        var item = document.createElement('li');
+        item.appendChild(document.createTextNode(entries[i]));
+        list.appendChild(item);
     }
-
-    
 })
