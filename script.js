@@ -67,7 +67,6 @@ var qButton4 = document.createElement("button");
 qButton4.setAttribute("class", "button");
 var list = document.createElement("ul");
 var entries = ["Names"];
-localStorage.setItem("stringifyEntries", JSON.stringify(entries));
 
 // Creating an array for randomization of questions upon retake.
 var arrayShuffler = [0, 1, 2, 3];
@@ -250,16 +249,25 @@ begin.addEventListener("click", quizTimer);
 record.addEventListener("click", function () {
     newQ.remove();
     begin.remove();
-    var entry = initials.value + ": " + score;
     var retrievedString = localStorage.getItem("stringifyEntries");
     entries = JSON.parse(retrievedString);
-    entries.push(entry);
-    localStorage.setItem("stringifyEntries", JSON.stringify(entries));
+    console.log(entries.length);
+    console.log(entries);
 
+    if (entries.length == 1) {
+        localStorage.setItem("stringifyEntries", JSON.stringify(entries));
+    }
+
+    retrievedString = localStorage.getItem("stringifyEntries");
+    entries = JSON.parse(retrievedString);
+    var entry = initials.value + ": " + score;
+    entries.push(entry);
+    console.log(entries.length);
+    console.log(entries);
+    localStorage.setItem("stringifyEntries", JSON.stringify(entries));
     document.body.appendChild(notify);
     notify.innerHTML = "Previous scores!";
     document.body.appendChild(list);
-    console.log(entries);
 
     for (i = 0; i < entries.length; i++) {
         var item = document.createElement('li');
