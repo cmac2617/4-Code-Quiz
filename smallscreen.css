@@ -5,6 +5,7 @@ h1 {
     display: block;
     margin: auto;
     margin-top: 5px;
+    font-size: 24px;
 }
 #question {
     text-align: center;
