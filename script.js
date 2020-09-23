@@ -72,15 +72,11 @@ var entries = ["Names"];
 var arrayShuffler = [0, 1, 2, 3];
 var a = Math.floor(Math.random() * 4);
 a = arrayShuffler.splice(a, 1);
-console.log(a);
 var b = Math.floor(Math.random() * 3);
 b = arrayShuffler.splice(b, 1);
-console.log(b);
 var c = Math.floor(Math.random() * 2);
 c = arrayShuffler.splice(c, 1);
-console.log(c);
 d = arrayShuffler[0];
-console.log(d);
 
 // Specifying primary function with setInterval on inside to run quiz.
 function quizTimer() {
@@ -113,7 +109,6 @@ function quizTimer() {
         qButton3.innerHTML = Qs[qNumber].As[c];
         newQ.appendChild(qButton4);
         qButton4.innerHTML = Qs[qNumber].As[d];
-        console.log(qButton4.innerHTML);
         begin.innerHTML = time;
 
     }, 1000);
@@ -216,8 +211,6 @@ qButton3.addEventListener("click", function () {
 
 qButton4.addEventListener("click", function () {
     if (qButton4.innerHTML == Qs[qNumber].As[3]) {
-        console.log(qButton4.innerHTML);
-        console.log(Qs[qNumber].As[3]);
         score = score + 10; qNumber++;
         arrayShuffler = [0, 1, 2, 3];
         a = Math.floor(Math.random() * 4);
