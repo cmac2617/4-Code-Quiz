@@ -113,6 +113,7 @@ function quizTimer() {
         qButton3.innerHTML = Qs[qNumber].As[c];
         newQ.appendChild(qButton4);
         qButton4.innerHTML = Qs[qNumber].As[d];
+        console.log(qButton4.innerHTML);
         begin.innerHTML = time;
 
     }, 1000);
@@ -214,7 +215,9 @@ qButton3.addEventListener("click", function () {
 })
 
 qButton4.addEventListener("click", function () {
-    if (qButton4.innerHTML = Qs[qNumber].As[3]) {
+    if (qButton4.innerHTML == Qs[qNumber].As[3]) {
+        console.log(qButton4.innerHTML);
+        console.log(Qs[qNumber].As[3]);
         score = score + 10; qNumber++;
         arrayShuffler = [0, 1, 2, 3];
         a = Math.floor(Math.random() * 4);
